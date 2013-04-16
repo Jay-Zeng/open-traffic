@@ -1,5 +1,4 @@
 
-
 Using the path inference filter
 ================================
 
@@ -37,7 +36,7 @@ The GPS data must be in a CSV style format. The parser is in this [file](https:/
  
 Here is a valid line:
 
-```json
+```csv
 2012-04-30 00:00:07,DRIVER1,34.14503,-117.46969,0,0
 2012-04-30 00:00:09,DRIVER2,34.14505,-117.46963,0,0
 2012-04-30 00:00:11,DRIVER1,34.1457,-117.46961,0,0
