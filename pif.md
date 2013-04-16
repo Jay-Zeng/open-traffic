@@ -9,6 +9,11 @@ the instructions below should allow you to adapt the PIF to your own data withou
 In order to use the PIF, you need a file containing a description of the road network, and a file containing the GPS data. 
 The network description must have a specific filename and be placed in a specific directory.
 
+Prerequisite
+-------------
+
+You must have installed the PIF on your local machine. Look at the instructions in `README.rst`.
+
 Network description
 --------------------
 
@@ -19,13 +24,16 @@ The format accepted is described in this [file](https://github.com/calpath/open-
 
 Here is a valid snippet line:
 ```json
-{"id":{"primary":0,"secondary":1},"length":176,"startNodeID":{"primary":0,"secondary":1},"endNodeID":{"primary":1,"secondary":1},"geom":{"points":[{"lat":6.0618600000000,"lon":49.8306900000000,"srid":4326},{"lat":6.0617100000000,"lon":49.8291200000000,"srid":4326}]},"endFeature":"none","numLanes":1,"speedLimit":2.7500000000000}
+{"id":{"primary":0,"secondary":1},"startNodeID":{"primary":0,"secondary":1},"endNodeID":{"primary":1,"secondary":1},"geom":{"points":[{"lat":6.06186,"lon":49.83069,"srid":4326},{"lat":6.06171,"lon":49.82912,"srid":4326}]}}
 ```
 
+While most fields are optional, the PIF requires the geometry (`geom`) to be specified.
+
 The network file has to be in a file called *DATA_DIR/network_nidNID_TYPE.json.gz* where:
-- DATA_DIR is the location of all the data (this is were the PIF will output the data)
-- NID is an integer that identifies the road network
-- TYPE is a string that identifies the type of road network being used
+- `DATA_DIR` is the location of all the data (this is were the PIF will output the data)
+- `NID` is an integer that identifies the road network
+- `TYPE` is a string that identifies the type of road network being used. You can use whatever you want, as long as it is a non-empty
+string.
 
 
 Import data description
@@ -79,3 +87,5 @@ All the output is stored in `DATA_DIR/SOURCE`.
 
 Data output description
 ------------------------
+
+TODO.
