@@ -106,6 +106,14 @@ object ImportProbeData extends MMLogging {
       None
     }
   }
+  
+  def getParsingFunction(name:String):ParseFun ={
+    name match {
+      case "csv1" => formatCSV1 _
+      case "csv-pg" => formatCSVPG _
+      case x => logError("Unknown format %s".format(x)) ; assert(false); null
+    }
+  } 
 
   def main(args: Array[String]) = {
     import Dates._

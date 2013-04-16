@@ -23,6 +23,7 @@ import edu.berkeley.path.bots.netconfig.io.Serializer
 import edu.berkeley.path.bots.netconfig.storage.LinkIDRepr
 import edu.berkeley.path.bots.network.gen.GenericLink
 import edu.berkeley.path.bots.netconfig.storage.LinkIDRepr
+import edu.berkeley.path.bots.netconfig.storage.LinkIDRepr
 
 /**
  * A collection of utilities to materialize a network from a JSON representation on disk, using generic links.
@@ -38,10 +39,22 @@ object NetworkUtils extends MMLogging {
     val fname = SerializedNetwork.fileName(network_id, net_typesource_name)
     val glrs = JSonSerializer.getGenericLinks(fname)
     val builder = new NetworkBuilder
-    logInfo("Building network source=%s, nid=%d" format (net_typesource_name, network_id))
+    logInfo("Building network type=%s, nid=%d" format (net_typesource_name, network_id))
     val links = builder.build(glrs)
     logInfo("Building network done")
     links.toMap
+  }
+  
+  /**
+   * Materializes links from a JSON file.
+   */
+  def getLinks(filename:String): Map[LinkIDRepr, Link] = {
+    val glrs = JSonSerializer.getGenericLinks(filename)
+    val builder = new NetworkBuilder
+    logInfo("Building network from file %s" format filename)
+    val links = builder.build(glrs)
+    logInfo("Building network done")
+    links.toMap    
   }
 
   /**
