@@ -25,6 +25,7 @@ import java.util.{ Collection => JCollection }
 import scala.collection.JavaConversions.asJavaCollection
 import scala.collection.JavaConversions.asScalaBuffer
 
+// TODO (tjhunter) replace codahale with something else
 import com.codahale.jerkson.Json.generate
 import com.codahale.jerkson.Json.parse
 import com.google.common.collect.ImmutableList
@@ -77,7 +78,7 @@ object FileReading {
  *
  * Depending on the network you are using, you should use one of the concrete classes.
  */
-trait JsonSerializer[L <: Link] extends Serializer[L] with Codec[L] {
+trait JSonSerializer[L <: Link] extends Serializer[L] with Codec[L] {
 
   def encodeExtensiveInfo = true
 
@@ -145,13 +146,13 @@ trait JsonSerializer[L <: Link] extends Serializer[L] with Codec[L] {
 }
 
 object JSonSerializer {
-  def from[L <: Link](fromFun: LinkIDRepr => L, toFun: L => LinkIDRepr): JsonSerializer[L] = {
-    new JsonSerializer[L] {
+  def from[L <: Link](fromFun: LinkIDRepr => L, toFun: L => LinkIDRepr): JSonSerializer[L] = {
+    new JSonSerializer[L] {
       def fromLinkID(lid: LinkIDRepr): L = fromFun(lid)
       def toLinkID(l: L): LinkIDRepr = toFun(l)
     }
   }
-  def from[L <: Link](links: Map[LinkIDRepr, L]): JsonSerializer[L] = {
+  def from[L <: Link](links: Map[LinkIDRepr, L]): JSonSerializer[L] = {
     val map2: Map[L, LinkIDRepr] = links.map(z => (z._2, z._1))
     from(links.apply _, map2.apply _)
   }
