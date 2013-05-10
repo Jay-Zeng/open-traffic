@@ -143,6 +143,13 @@ object RunPif extends MMLogging {
       .values
       .map(_.map(_._1))
       .toSeq
+      
+    val num_indexes = batched_indexes.map(_.size).sum
+    if (num_indexes > 0) {
+      logInfo("Processing %d tasks with %d threads.".format(num_indexes, num_threads))
+    } else {
+      logInfo("No task to process, exiting. If this is unexpected, check your parameters and your filtering options (date, range, driver-id).")
+    }
 
     val tasks = for (findexes <- batched_indexes) yield {
       future {
