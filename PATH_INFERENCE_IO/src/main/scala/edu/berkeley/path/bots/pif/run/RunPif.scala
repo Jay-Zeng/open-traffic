@@ -62,7 +62,7 @@ object RunPif extends MMLogging {
     import Dates._
     var network_id: Int = -1
     var date: LocalDate = null
-    var range: Seq[LocalDate] = Seq.empty
+    var range: Option[Seq[LocalDate]] = Some(Seq.empty[LocalDate])
     var feed: String = ""
     var driver_id: String = ""
     var net_type: String = ""
@@ -70,17 +70,39 @@ object RunPif extends MMLogging {
     var extended_info: Boolean = false
     var sort_time: Boolean = false
     val parser = new OptionParser("test") {
-      intOpt("nid", "the net id", network_id = _)
-      intOpt("num-threads", "the number of threads (the program will use one thread per day)", num_threads = _)
-      opt("date", "the date", { s: String => { for (d <- parseDate(s)) { date = d } } })
-      opt("range", "the date", (s: String) => for (r <- parseRange(s)) { range = r })
-      opt("feed", "data feed", feed = _)
-      opt("net-type", "The network type", net_type = _)
-      opt("driver_id", "Runs the filter on the selected driver id", driver_id = _)
-      booleanOpt("extended-info", "Adds additional (redundant) information in the output file. Useful for python.", extended_info = _)
-      booleanOpt("resort-data", "sort the data by timestamp before sending it to the PIF", sort_time = _)
+      intOpt("nid", 
+          "(required, integer) - " +
+          "The identifier of the network", network_id = _)
+      intOpt("num-threads",
+          "(optional, default to %d) the number of threads. the program will use one thread per day.".format(num_threads),
+          num_threads = _)
+      opt("date", "(optional) the date. The format is YYYY-MM-DD (if the date is empty, it will try to process everything " +
+      		"available for this feed)",
+          { s: String => { for (d <- parseDate(s)) { date = d } } })
+      opt("range", "(optional) a range of dates. The format is YYYY-MM-DD:YYYY-MM-DD. " +
+      		"Cannot be used with the 'date' argument. " +
+      		"If both 'date' and 'range' are unspecified, the program will process everything.",
+          (s: String) => for (r <- parseRange(s)) { range = Some(r) })
+      opt("feed", "(required, string)" +
+      		" The name of the data feed", 
+      		feed = _)
+      opt("net-type", "(required, string)" +
+      		"The type of the network.",
+      		net_type = _)
+      opt("driver_id", "(optional, list of comma-separated strings) " +
+      		"Runs the filter on the selected driver ids",
+      		driver_id = _)
+      booleanOpt("extended-info", "Adds additional (redundant) information in the output file. " +
+      		"Useful for python.", extended_info = _)
+      booleanOpt("resort-data", "(optional, default to %s)".format(sort_time.toString) +
+      		"sort the data by timestamp before sending it to the PIF", sort_time = _)
     }
     parser.parse(args)
+    if (network_id == -1) {
+      parser.showUsage
+      throw new IllegalArgumentException
+    }
+      
 
     val parameters = pifParameters()
 
@@ -95,11 +117,12 @@ object RunPif extends MMLogging {
 
     val path_gen = PathGenerator2.getDefaultPathGenerator(parameters)
 
+    // Can be null
     val date_range: Seq[LocalDate] = {
       if (date != null) {
         Seq(date)
       } else {
-        range
+        range.getOrElse(null)
       }
     }
 
@@ -111,7 +134,7 @@ object RunPif extends MMLogging {
 
     assert(!date_range.isEmpty, "You must provide a date or a range of date")
 
-    logInfo("Number of selected dates: %s" format date_range.size)
+    logInfo("Number of selected dates: %s" format {if (date_range==null) "everything" else date_range.size.toString})
     logInfo("Feed:" + feed)
     logInfo("Driver whitelist: %s" format drivers_whitelist.toString)
     logInfo("Presorting data: %s" format sort_time)
