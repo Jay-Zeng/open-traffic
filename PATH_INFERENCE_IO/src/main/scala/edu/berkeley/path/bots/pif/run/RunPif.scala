@@ -132,8 +132,6 @@ object RunPif extends MMLogging {
       driver_id.split(",").toSet
     }
 
-    assert(!date_range.isEmpty, "You must provide a date or a range of date")
-
     logInfo("Number of selected dates: %s" format {if (date_range==null) "everything" else date_range.size.toString})
     logInfo("Feed:" + feed)
     logInfo("Driver whitelist: %s" format drivers_whitelist.toString)
