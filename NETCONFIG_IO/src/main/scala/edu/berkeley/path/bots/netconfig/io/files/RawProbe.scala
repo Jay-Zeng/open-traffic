@@ -29,7 +29,7 @@ object RawProbe {
     val dir = new File(dir_name)
     if (dir.exists()) {
       val regex = """(.*)/(\d\d\d\d-\d\d-\d\d).json.gz""".r
-      dir.listFiles().map(_.getAbsolutePath()).flatMap(p => p match {
+      dir.listFiles().map(_.getAbsolutePath().replace('\\', '/')).flatMap(p => p match {
         case regex(base, ymd) => Dates.parseDate(ymd) match {
           case Some(date) => if (dic.isEmpty || dic.contains(date)) {
             Some(FileIndex(feed, nid, date))
