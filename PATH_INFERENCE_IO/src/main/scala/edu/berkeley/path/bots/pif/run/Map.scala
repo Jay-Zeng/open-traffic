@@ -314,7 +314,7 @@ This assumes the network uses generic links.
     }
     
     assert(date_range == null || date_range.isEmpty, "You must provide a date or a range of date")
-    logInfo("Date range: " + (if(date_range==null){"everything"}else{"%d trajectories".format(date_range.size.toString)}))
+    logInfo("Date range: " + (if(date_range==null){"everything"}else{"%s trajectories".format(date_range.size.toString)}))
 
     logInfo("About to start")
     logInfo("Actions: %s" format actions.mkString(" "))
