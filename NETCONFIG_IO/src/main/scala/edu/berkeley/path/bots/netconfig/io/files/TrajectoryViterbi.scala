@@ -43,7 +43,7 @@ object TrajectoryViterbi extends MMLogging {
     val dir_name = "%s/%s/viterbi_trajs_nid%d_%s/".format(Files.dataDir(), feed, nid, net_type)
     val dir = new File(dir_name)
     if (dir.exists()) {
-      val good_dates = dir.listFiles().map(_.getAbsolutePath()).map(p => { logInfo("p:" + p); p }).flatMap(p => p match {
+      val good_dates = dir.listFiles().map(_.getAbsolutePath().replace('\\','/')).map(p => { logInfo("p:" + p); p }).flatMap(p => p match {
         case day_regex(base, ymd) => Dates.parseDate(ymd) match {
           case Some(date) if (dic_dates.isEmpty || dic_dates.contains(date)) => {
             val f = new File(p)
