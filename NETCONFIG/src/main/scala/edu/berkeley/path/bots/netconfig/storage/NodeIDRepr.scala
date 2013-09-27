@@ -16,5 +16,8 @@
 
 package edu.berkeley.path.bots.netconfig.storage
 
+/**
+ * Serializable representation of the identifier of a node.
+ */
 case class NodeIDRepr(var primary: Long, var secondary: Int) {
 }

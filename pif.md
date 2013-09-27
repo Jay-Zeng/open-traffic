@@ -87,4 +87,6 @@ All the output is stored in `DATA_DIR/SOURCE`.
 Data output description
 ------------------------
 
+The primary output of the PIF is a joint distribution of probability distributions over points and paths.
+
 TODO.

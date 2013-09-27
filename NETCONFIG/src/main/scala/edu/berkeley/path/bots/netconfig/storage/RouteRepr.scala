@@ -17,6 +17,12 @@
 package edu.berkeley.path.bots.netconfig.storage
 import edu.berkeley.path.bots.core.storage.GeoMultiLineRepr
 
+/**
+ * Serializable representation of a route.
+ * 
+ * A route is a sequence of spots on the road network.
+ * The geometry is the geometry representation of the route (optionally stored).
+ */
 case class RouteRepr(
     var links: Seq[LinkIDRepr],
     var spots: Seq[SpotRepr],

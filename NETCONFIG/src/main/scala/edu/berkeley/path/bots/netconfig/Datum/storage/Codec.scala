@@ -25,6 +25,10 @@ import edu.berkeley.path.bots.netconfig.Datum.RouteTT
 import edu.berkeley.path.bots.netconfig.Datum.PathInference
 import edu.berkeley.path.bots.netconfig.Datum.TSpot
 
+/**
+ * Contains some conversion utilities between a representation and the object. Extends [[edu.berkeley.path.bots.netconfig.storage.Codec]]
+ * with some additional methods for the objects in Datum.
+ */
 trait Codec[L <: Link] extends edu.berkeley.path.bots.netconfig.storage.Codec[L] {
 
   /**

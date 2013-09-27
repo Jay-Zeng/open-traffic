@@ -23,6 +23,9 @@ import scala.math.Ordering.LongOrdering
  *
  * It is assumed that any link of any road network can be uniquely identified
  * by a pair of a long integer and of an integer.
+ * 
+ * @param primary the primary identifier of the link
+ * @param secondary the secondary identifier of the link. Set to 0 if you do not need this feature.
  *
  * An ordering is defined on the linkID representations. import edu.berkeley.path.bots.netconfig.storage._
  */

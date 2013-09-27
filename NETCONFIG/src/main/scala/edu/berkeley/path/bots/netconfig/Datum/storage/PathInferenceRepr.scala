@@ -18,6 +18,9 @@ package edu.berkeley.path.bots.netconfig.Datum.storage
 import edu.berkeley.path.bots.core.storage.TimeRepr
 import edu.berkeley.path.bots.netconfig.storage.RouteRepr
 
+/**
+ * Representation of a PathInference object.
+ */
 case class PathInferenceRepr(
   val id: String,
   val startTime: TimeRepr,

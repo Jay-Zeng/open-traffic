@@ -26,7 +26,10 @@ case class ConnectionRepr(
   var from: Int,
   var to: Int)
 
-/**
+/** Representation of a trajectory by a sequece of pairs of (routes, point)
+ *  
+ *  This class contains the basic representation of a trajectory. If the point is the first 
+ *  point of the trajectory, the connections and the routes are empty.
  */
 case class TrackPieceRepr(
   var firstConnections: Seq[ConnectionRepr],

@@ -19,6 +19,10 @@ import edu.berkeley.path.bots.core.storage.CoordinateRepresentation
 import edu.berkeley.path.bots.core.storage.TimeRepr
 import edu.berkeley.path.bots.netconfig.storage.SpotRepr
 
+/**
+ * Representation of the ProbeCoordinate object.
+ * Most of the fields are optional, except for the id, the time stamp and the coordinate.
+ */
 case class ProbeCoordinateRepr(
   var id: String,
   var time: TimeRepr,
