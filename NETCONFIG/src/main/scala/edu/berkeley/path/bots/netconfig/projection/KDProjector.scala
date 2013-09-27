@@ -41,7 +41,7 @@ class KDProjector[L <: Link](val links: Seq[L])
   //                           seg)
   //    }).toArray
   // Build KD tree
-  val tree = {
+  lazy val tree = {
     val euc_segments = segments.keys.map(seg => {
       new EuclidianSegment(project(seg.start), project(seg.end), seg)
     }).toArray

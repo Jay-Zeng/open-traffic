@@ -49,7 +49,7 @@ trait Projector[L <: Link] extends MMLogging {
   /**
    * All the links that will be used for the projection.
    */
-  val links: Seq[L]
+  def links: Seq[L]
 
   val searchRadius: Double = 30.0
 
@@ -68,7 +68,7 @@ trait Projector[L <: Link] extends MMLogging {
    * builds a map from segments to the original link, and the offset on this
    * link.
    */
-  protected val segments = IMap.empty[Segment, (L, Double)] ++ links.flatMap(l => {
+  protected lazy val segments = IMap.empty[Segment, (L, Double)] ++ links.flatMap(l => {
     val geom = l.geoMultiLine
     val length = geom.getLength
     if (math.abs(length - l.length) > 1) {
