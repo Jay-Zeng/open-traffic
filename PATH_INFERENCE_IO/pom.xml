@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>edu.berkeley.path</groupId>
 		<artifactId>bots</artifactId>
-		<version>0.3-SNAPSHOT</version>
+		<version>0.2.1</version>
 	</parent>
 
 
@@ -15,17 +15,17 @@
 		<dependency>
 			<groupId>edu.berkeley.path</groupId>
 			<artifactId>netconfig-io</artifactId>
-			<version>0.3-SNAPSHOT</version>
+			<version>0.2.1</version>
 		</dependency>
     <dependency>
       <groupId>edu.berkeley.path</groupId>
       <artifactId>path-inference</artifactId>
-      <version>0.3-SNAPSHOT</version>
+      <version>0.2.1</version>
     </dependency>
     <dependency>
       <groupId>edu.berkeley.path</groupId>
       <artifactId>netconfig</artifactId>
-      <version>0.3-SNAPSHOT</version>
+      <version>0.2.1</version>
     </dependency>
 		<dependency>
 			<groupId>junit</groupId>
